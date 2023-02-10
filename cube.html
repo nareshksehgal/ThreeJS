@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Three Js learning</title>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <script type="module">
+      import * as THREE from "./three.module.js";
+
+      //scene
+      var scene = new THREE.scene();
+
+      //Camera
+      var width = window.innerWidth;
+      var height = window.innerHeight;
+      var viewAngle = 45;
+      var nearClipping = 0.1;
+      var farClipping = 9999;
+
+      var camera = new THREE.PerspectiveCamera(
+        viewAngle,
+        width / height,
+        nearClipping,
+        farClipping
+      );
+      camera.position.set(0, 0, 10);
+
+      // Geometry + Material = Mesh
+      // BoxGeometer >> Cube
+
+      var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
+
+      var cubeMaterial = new THREE.MeshBasicMateria({ color: "blue" });
+
+      var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+
+      cube.position.set(-5, 0, 0);
+
+      scene.add(cube);
+
+      //Renderer
+
+      var renderer = new THREE.webGLRenderer({ antialize: true });
+      renderer.setSize(width, height);
+
+      //JS to get elements
+      var element = document.getElementByID("container");
+      element.appendChild(renderer.domElement);
+
+      function animate() {
+        cube.rotation.y += 0.1;
+        capsule.rotation.x += 0.01;
+        cone.rotation.z += 0.01;
+        requestAnimationFrame(animate);
+        renderer.render(screne, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>
